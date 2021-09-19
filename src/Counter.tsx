@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { render } from "@testing-library/react";
+import React, { useEffect, useState, useRef } from "react";
 
 const Counter: React.FC<{}> = () => {
   const initialValue: any = 0;
@@ -12,11 +13,17 @@ const Counter: React.FC<{}> = () => {
     setValue(value - 1);
   };
 
+  const renderTimes = useRef(0);
+  useEffect(() => {
+    renderTimes.current = renderTimes.current + 1;
+  });
+
   return (
     <div>
       <div>value: {value}</div>
       <button onClick={increment}>+1</button>
       <button onClick={decrement}>-1</button>
+      <div>this component was re-rendered {renderTimes.current} times!</div>
     </div>
   );
 };
